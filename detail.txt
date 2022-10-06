@@ -1,0 +1,199 @@
+1- first of all you have to intilize your project using - npm init
+2- download all require packages
+--------------------------------
+    1- express - web framwork of node js
+    2- mongoose - connection nodejs to database
+    3- body-parser - for geeting template reqiuest
+    4- hbs - for template engine
+    5- nodemon - npm install nodemon --save-dev  -  as a dev dependience
+
+3- creting files and folder
+---------------------------------
+    1- create app.js file and routes and models folder  inside src folder - for javascript files
+    2- create views folder in main directory for storing templates file
+    3- inside views you have to create partials folder for storing hbs file that are same in all the page.
+    4- create public folder in main directory for stroring static data like css and img and javascript file
+    5- inside public you have to create css,img and js folder
+
+4- creating node server
+-----------------------------
+1- import all packges you installed - express,hbs,monngose etc- const express = require("express");
+2- intilize express in app - const app = express();
+3- listen our app -
+ app.listen(process.env.PORT | 80,()=>{
+    console.log("this is the ");
+    })
+
+4- send a response to the server-
+    app.get("/",(req,res)=>{
+        res.send("this is data from server")
+    })
+
+5- create routes for our webstie-
+--------------------------------------
+
+    1- create main.js in routes folder
+    2- inside routesyou have to do some things-
+        const express = require("express") // import express
+        const routes = express.Router(); .// create router object as a routes
+        routes.get("/",()=>{
+            res.send("this is the data from routes")
+         })
+        note - now we can create all routes in this file
+    4- exports routes - module.exports = routes;
+    5- import in app.js - 
+        const routes = require('./routes/main') //import
+        app.use('',routes) // '' directory per open routes 
+
+6- hbs 
+-----------------
+    1- import hbs in app.js - const hbs = require("hbs");
+    2- set our view engine - app.set('view engine','hbs')
+    3- set views path - app.set("views","views");
+now all done with hbs 
+
+7- serve statice files
+------------------------
+for that we have to use this code in app.js - app.use('/static',express.static("public"));
+
+8- connect with database
+-----------------------
+
+    1- create database in mongodb compass
+    2- now connect this database for that- 
+        1- import mongoose in app.js
+        2- mongoose.connect("mongodb://localhost/tech_website",()=>{
+            console.log("database connected")
+            });
+good to go----
+
+9- create partials
+----------------------------
+1- set the partials in app.js - hbs.registerPartials("views/partials")
+2- now you can use partials in any hbs files - {{>navbar}}
+
+10- now creating navbar
+    1- inculude bootstrap and creating navbar
+
+=========================================================================
+
+Now connect moongodb to nodejs
+`1- create schema in models folder name is - detail.js
+    in detail.js -
+for dynamic brandname,icon and nav-link and savw it to database
+    const mongoose = require("mongoose")
+    const Detail = mongoose.Schema({
+        brandName:String,
+        brandIconUrl:String,
+        links:[{
+            label:String,
+            url:String
+        }]
+    })
+module.exports = mongoose.model("detail",Detail)
+// first detail is a collection in our database where we have to store database
+//secoond detail is our schema
+
+now - do some changes in app.js-
+const Detail = require("./models/detail")
+mongoose.connect("mongodb://localhost/tech_website", () => {
+    console.log("mongodb connected");
+   Detail.create({
+        brandName: "Info Technical Solution",
+        brandIconUrl: "/static/img/logo.png",
+        links: [
+            {
+                label: "Home",
+                url: "/"
+            },
+            {
+                label: "Services",
+                url: "/services"
+            },
+            {
+                label: "Gallery",
+                url: "/gallery"
+            },
+            {
+                label: "About",
+                url: "/about"
+            },
+            {
+                label: "Contact Us",
+                url: "/contact-us"
+            }
+        ]
+    })
+})
+
+once data store in databse simply commentout this code now we have take response form database
+
+now feching data from databse
+---------------------------------------
+
+1- you have to import Detail module from detail.js in main.js
+const Detail = require("../models/detail")
+routes.get("/",async (req,res)=>{
+    const details = await Detail.findOne({"_id":"631a391aec740908dad0103f"})
+    console.log(details);
+    res.render("index")
+})
+
+now index.hbs to navbar data transter
+--------------------------------
+in index.js {{>navbar data=details}} // yaha details ki value data ke rup me navbar me send kar di ab we can access it in navbar by using data,
+like - in navbar you can write - {{data.brandName}} and now you can update by your database
+
+Now Creating slide dynamic
+===================================
+
+1- create a file slide.js in models folder
+2- import monngonse
+3- create slider name schema
+4- export module - module.exports = mongoose.model('slider',Slider);
+5- import slider in app.js 
+6- mongoose.connect("mongodb://localhost/tech_website", () => {
+    console.log("mongodb connected");
+    Slider.create([
+        {
+            title: "Learn with thebadal",
+            subtitle: "Java is the one of the best programming languge for app developer",
+            imageUrl: "/static/img/slider-1.jpg"
+        },
+        {
+            title: ":Learn django with python",
+            subtitle: "django is the famus web framewrk",
+            imageUrl: "/static/img/slider-1.jpg"
+        },
+        {
+            title: "Learn javascript with us",
+            subtitle: "make javascript specail for you and you can mae human indo",
+            imageUrl: "/static/img/slider-1.jpg"
+        }
+    ])
+    // Detail.create({
+    //     brandName: "Info Technical Solution",
+    //     brandIconUrl: "/static/img/logo.png",
+    //     links: [
+    //         {
+    //             label: "Home",
+    //             url: "/"
+    //         },
+    //         {
+    //             label: "Services",
+    //             url: "/services"
+    //         },
+    //         {
+    //             label: "Gallery",
+    //             url: "/gallery"
+    //         }
+    //     ]
+    // })
+})
+
+now databaseis saved in database in slider collectio==============
+7- now go to main.js and - const slides =await Slider.find()
+8- data taken in index.hbs - {{slide slides=slides}}
+9- now go to slider.hbs and declare useing - {{this.brandName}}
+
+

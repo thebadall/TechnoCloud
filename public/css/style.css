@@ -1,0 +1,16 @@
+.slider-images {
+    max-height: 80vh;
+    /* tai photos scale na ho  */
+    object-fit: cover;
+}
+.service_icon{
+    font-size: 90px;
+}
+.d-flex{
+    display: flex;
+}
+.background1{
+    color: white;
+    background-color: #581558;
+
+}

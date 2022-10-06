@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>thebadal solution</title>
+
+  {{!-- bootstrap css --}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+
+  {{!-- custom css --}}
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  {{!-- font awosom --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+  {{>navbar data=details}}
+  {{>slider slides=slides}}
+  {{!-- banner-1 section --}}
+  <section class="banner1_section py-5 text-center background1">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Start Learning new technology here !!</h1>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio earum quo cupiditate.</p>
+          <button class="btn btn-outline-primary">
+            Start Learning
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{!-- services section --}}
+  <section id="services-section" class="py-4">
+    <div class="container">
+      <h1 class="text-center text-secondary">Our Services that we provide</h1>
+      <div class="row mt-5">
+        {{!-- first service col --}}
+        {{#each services}}
+        <div class="col-md-4 mt-2">
+          <div class="card">
+            <div class="card-body">
+              <div class="container text-center py-3">
+                <i class="{{this.cardIcon}} service_icon"></i>
+              </div>
+              <h5 class="card-title">{{this.cardTitle}}</h5>
+              <p>{{this.cardDesc}}</p>
+              <a href="{{this.link}}">{{this.linkText}}</a>
+              <a href="#!">Support</a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+
+      </div>
+    </div>
+  </section>
+
+{{!-- banner2 --}}
+  <section class="banner2_section py-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-center " style="margin-top: 5rem">
+          {{!-- left --}}
+          <h3>Support 24/7 Hours</h3>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. A dolores pariatur tempora sed aliquid incidunt fugit deleniti minima similique necessitatibus?</p>
+          <div class="btn btn-btn-primary">Click here</div>
+        </div>
+        <div class="col-md-6 text-center">
+          {{!-- right side  --}}
+          <img src="/static/img/graphic.png" style="width: 20rem" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{!-- banner-3 section  --}}
+  <section class="banner2_section py-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-center">
+          {{!-- right side  --}}
+          <img src="/static/img/graphic-2.png" style="width: 30rem" alt="">
+        </div>
+
+        <div class="col-md-6 text-center " style="margin-top: 6rem">
+          {{!-- left --}}
+          <h3>We work for people, not for money</h3>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. A dolores pariatur tempora sed aliquid incidunt fugit deleniti minima similique necessitatibus?</p>
+          <div class="btn btn-btn-primary">Click here</div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  {{!-- contact us section --}}
+  <section id="contact_us_section" class="py-5 background1" >
+    <div class="container">
+      <h3 class="text-center text-secondary">Contact Us</h3>
+      <div class="row">
+        <div class="col-md-12">
+          {{!-- form --}}
+
+          <form action="/process-contact-form" method="post">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Your Email address</label>
+              <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+
+            </div>
+
+            <div class="mb-3">
+              <label for="contactNumberField" class="form-label">Your Contact Number</label>
+              <input name="phone" type="number" class="form-control" id="contactNumberField">
+            </div>
+
+            <div class="form-floating mt-2">
+              <textarea name="query" style="height:250px" class="form-control" placeholder="Enter Your Query Here" id="floatingTextarea"></textarea>
+              <label for="floatingTextarea">Your Query</label>
+            </div>
+
+            <div class="container text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{!-- about section  --}}
+  <section id="about-us-section" class="about_section py-5">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-md-12">
+          <h3>About This Side</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos non cum ipsum sunt ratione eum facere ea dolore nobis error aspernatur, voluptate, quo magnam! Dolore a dicta laudantium, veritatis repudiandae ipsa in.</p>
+          <button class="btn btn-success btn-lg">Contact Us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{!-- footer  --}}
+  {{>footer}}
+  {{!-- bootstrap javascript --}}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  {{!-- custom javascript --}}
+  <script src="/static/js/index.js"></script>
+</body>
+
+</html>
